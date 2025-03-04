@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "795410787224",
+    "project_id": "cabquiz-15446",
+    "storage_bucket": "cabquiz-15446.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795410787224:android:efb24a927becd16d3dd9ed",
+        "android_client_info": {
+          "package_name": "com.cabqui"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZdZ4_bILdDEFj4w3lJTLLy_jlSq7_uiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
