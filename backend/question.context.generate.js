@@ -46,10 +46,14 @@ async function main() {
     await new Promise((resolve) => setTimeout(resolve, 5000));
     return main();
   }
-  await handler(room);
+
+  const start = Date.now();
+  await handler(room, start);
 }
 
-async function handler(room) {
+async function handler(room, start) {
+  if ((Date.now() - start) / 1000 / 60 / 30 > 1) return;
+
   for (let i = 0; i < count; i++) {
     const question = await generate(room);
     question.id = `question_${Date.now()}_${i}`;
