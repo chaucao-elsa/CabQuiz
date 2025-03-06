@@ -17,7 +17,11 @@ import 'package:random_avatar/random_avatar.dart';
 
 @RoutePage()
 class QuizPage extends StatelessWidget implements AutoRouteWrapper {
-  const QuizPage({super.key, required this.roomId, required this.username});
+  const QuizPage({
+    super.key,
+    @PathParam('roomId') required this.roomId,
+    @PathParam('username') required this.username,
+  });
 
   final String roomId;
   final String username;
@@ -91,10 +95,26 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Column(
                       children: [
-                        if (startTime != null)
+                        if (startTime != null && question != null)
                           QuestionTimerWidget(
                             key: ValueKey(startTime),
                             startTime: startTime,
+                          )
+                        else
+                          const Center(
+                            child: Column(
+                              children: [
+                                CircularProgressIndicator(),
+                                SizedBox(height: 16),
+                                Text(
+                                  'Waiting for first question...',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         const SizedBox(height: 12),
                         if (question != null) ...[
@@ -192,24 +212,72 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
 
   Widget _buildCurrentUserInfo() {
     return BlocListener<UserScoreCubit, UserScoreState>(
-      // detect when user score is increased
+      // detect when user score changes
       listenWhen: (previous, current) =>
           previous is UserScoreConnected &&
           current is UserScoreConnected &&
           current.currentScore != null &&
-          current.currentScore! > current.previousScore,
+          previous.currentScore != current.currentScore,
       listener: (context, state) {
         final currentState = state as UserScoreConnected;
         final scoreDifference =
             currentState.currentScore! - currentState.previousScore;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Correct! + $scoreDifference',
-              textAlign: TextAlign.center,
+
+        if (scoreDifference > 0) {
+          // Correct answer - show success animation
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.green,
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.check_circle, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Correct! +$scoreDifference',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
-          ),
-        );
+          );
+        } else if (scoreDifference < 0) {
+          // Incorrect answer - show failure animation
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.close, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Incorrect! $scoreDifference',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          );
+        }
       },
       child: BlocBuilder<UserScoreCubit, UserScoreState>(
         builder: (context, state) {

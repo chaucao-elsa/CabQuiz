@@ -31,7 +31,20 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp.router(
       routerConfig: router.config(),
       title: 'Cab Quiz',
-      builder: EasyLoading.init(),
+      builder: (context, child) {
+        // Initialize EasyLoading
+        child = EasyLoading.init()(context, child);
+
+        // Apply max width constraint for web/larger screens
+        return Container(
+          alignment: Alignment.center,
+          color: Colors.black,
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 480), // Mobile width
+            child: child,
+          ),
+        );
+      },
       theme: ThemeData(
         fontFamily: FontFamily.nunito,
         textTheme: const TextTheme(

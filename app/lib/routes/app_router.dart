@@ -13,6 +13,7 @@ class AppRouter extends RootStackRouter {
           initial: true,
         ),
         AutoRoute(
+          path: '/quiz/:roomId/:username',
           page: QuizRoute.page,
         ),
         AutoRoute(

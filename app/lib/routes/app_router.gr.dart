@@ -102,6 +102,10 @@ class QuizRoute extends _i4.PageRouteInfo<QuizRouteArgs> {
             roomId: roomId,
             username: username,
           ),
+          rawPathParams: {
+            'roomId': roomId,
+            'username': username,
+          },
           initialChildren: children,
         );
 
@@ -110,7 +114,12 @@ class QuizRoute extends _i4.PageRouteInfo<QuizRouteArgs> {
   static _i4.PageInfo page = _i4.PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<QuizRouteArgs>();
+      final pathParams = data.inheritedPathParams;
+      final args = data.argsAs<QuizRouteArgs>(
+          orElse: () => QuizRouteArgs(
+                roomId: pathParams.getString('roomId'),
+                username: pathParams.getString('username'),
+              ));
       return _i4.WrappedRoute(
           child: _i3.QuizPage(
         key: args.key,

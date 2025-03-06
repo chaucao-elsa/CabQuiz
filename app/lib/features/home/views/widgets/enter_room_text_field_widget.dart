@@ -1,4 +1,3 @@
-import 'package:cabquiz/features/home/blocs/fetch_rooms_cubit/fetch_rooms_cubit.dart';
 import 'package:cabquiz/features/home/blocs/join_room_cubit/join_room_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +14,8 @@ class EnterRoomTextFieldWidget extends StatefulWidget {
 
 class _EnterRoomTextFieldWidgetState extends State<EnterRoomTextFieldWidget> {
   final controller = TextEditingController();
+  final int maxWords = 4;
+  final int maxLength = 50; // Set a reasonable length for a room topic
 
   @override
   void dispose() {
@@ -24,75 +25,34 @@ class _EnterRoomTextFieldWidgetState extends State<EnterRoomTextFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<FetchRoomsCubit, FetchRoomsState>(
+    return BlocListener<JoinRoomCubit, JoinRoomState>(
       listener: (context, state) {
-        if (state is FetchRoomsSuccess &&
-            state.rooms.isNotEmpty &&
-            controller.text.isEmpty) {
-          controller.text = state.rooms.first.topic;
-          context.read<JoinRoomCubit>().setTopic(controller.text);
-        }
+        controller.text = state.topic ?? '';
       },
-      builder: (context, state) {
-        return Column(
-          children: [
-            TextField(
-              controller: controller,
-              onChanged: context.read<JoinRoomCubit>().setTopic,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: '1',
-                suffixIconConstraints: const BoxConstraints(
-                  maxHeight: 32,
-                ),
-                suffixIcon: switch (state) {
-                  FetchRoomsLoading() => const SizedBox(
-                      height: 32,
-                      width: 32,
-                      child: CircularProgressIndicator(),
-                    ),
-                  FetchRoomsFailure() => const Text('error'),
-                  FetchRoomsSuccess() => IconButton(
-                      onPressed: () {
-                        // show modal bottom sheet with list of rooms
-                        showModalBottomSheet(
-                          context: context,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16),
-                            ),
-                          ),
-                          builder: (_) => ListView.builder(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 16,
-                              horizontal: 16,
-                            ),
-                            itemCount: state.rooms.length,
-                            itemBuilder: (_, index) => ListTile(
-                              onTap: () {
-                                context
-                                    .read<JoinRoomCubit>()
-                                    .setTopic(state.rooms[index].topic);
-                                controller.text = state.rooms[index].topic;
-                                Navigator.pop(context);
-                              },
-                              title: Text(
-                                state.rooms[index].topic,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                      icon: const Icon(Icons.keyboard_arrow_down_rounded),
-                    ),
-                  _ => const SizedBox.shrink(),
-                },
-              ),
-            ),
-          ],
-        );
-      },
+      child: TextField(
+        controller: controller,
+        onChanged: (value) {
+          // Filter out special characters, allowing only alphanumeric, spaces, and hyphens
+          String filteredValue = value.replaceAll(RegExp(r'[^\w\s-]'), '');
+
+          // Limit to maxWords
+          final words = filteredValue.split(RegExp(r'\s+'));
+          if (words.length > maxWords) {
+            filteredValue = words.take(maxWords).join(' ');
+          }
+
+          context.read<JoinRoomCubit>().setTopic(filteredValue);
+        },
+        keyboardType: TextInputType.text,
+        maxLength: maxLength,
+        autocorrect: false,
+        decoration: const InputDecoration(
+          hintText: 'Enter room name',
+          suffixIconConstraints: BoxConstraints(
+            maxHeight: 32,
+          ),
+        ),
+      ),
     );
   }
 }

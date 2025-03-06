@@ -10,6 +10,7 @@ class RoomDpo with _$RoomDpo {
     DateTime? startTime,
     QuestionDpo? question,
     int? userAnswer,
+    @Default(0) int players,
   }) = _RoomDpo;
 
   const RoomDpo._();
