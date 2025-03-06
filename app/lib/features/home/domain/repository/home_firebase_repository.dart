@@ -1,6 +1,7 @@
 import 'package:cabquiz/features/failure/failure.dart';
 import 'package:cabquiz/features/home/domain/dto/user/user_dto.dart';
 import 'package:cabquiz/features/home/domain/repository/home_repository.dart';
+import 'package:cabquiz/features/quiz/domain/dto/room_dto/room_dto.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:either_dart/either.dart';
 
@@ -12,14 +13,13 @@ class HomeFirebaseRepository implements HomeRepository {
   }
 
   @override
-  Future<Either<Failure, List<int>>> getRooms() async {
+  Future<Either<Failure, List<RoomDto>>> getRooms() async {
     try {
       final response = await firestore.collection('rooms').get();
       // convert list of room_id to list of int
-      final roomIds = response.docs
-          .map((doc) => int.parse(doc.id.split('_').last))
-          .toList();
-      return Right(roomIds);
+      final rooms =
+          response.docs.map((doc) => RoomDto.fromJson(doc.data())).toList();
+      return Right(rooms);
     } on FirebaseException catch (e) {
       return Left(Failure.fromFirestoreError(e));
     } catch (e) {
@@ -29,17 +29,21 @@ class HomeFirebaseRepository implements HomeRepository {
 
   @override
   Future<Either<Failure, String>> joinRoom({
-    required int roomId,
+    required String topic,
     required UserDto user,
   }) async {
     try {
-      final roomRef = firestore.collection('rooms').doc('room_$roomId');
+      // Convert topic to lowercase and replace spaces with hyphens
+      final formattedTopic = topic.toLowerCase().replaceAll(' ', '-');
+
+      final roomRef = firestore.collection('rooms').doc(formattedTopic);
 
       // Check if room exists
       final roomDoc = await roomRef.get();
       if (!roomDoc.exists) {
         // Create room if it doesn't exist
-        await roomRef.set({});
+        await roomRef
+            .set({'id': formattedTopic, 'topic': topic, 'worker_id': '-'});
       }
 
       // Check if user already exists in the room
@@ -55,7 +59,7 @@ class HomeFirebaseRepository implements HomeRepository {
             .set(user.toJson()..addAll({'score': 0}));
       }
 
-      return Right('room_$roomId');
+      return Right(formattedTopic);
     } on FirebaseException catch (e) {
       return Left(Failure.fromFirestoreError(e));
     } catch (e) {

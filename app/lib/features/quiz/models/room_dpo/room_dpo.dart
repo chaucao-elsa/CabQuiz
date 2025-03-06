@@ -6,7 +6,7 @@ part 'room_dpo.freezed.dart';
 @freezed
 class RoomDpo with _$RoomDpo {
   factory RoomDpo({
-    required String roomId,
+    required String topic,
     DateTime? startTime,
     QuestionDpo? question,
     int? userAnswer,

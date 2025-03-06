@@ -29,8 +29,8 @@ class _EnterRoomTextFieldWidgetState extends State<EnterRoomTextFieldWidget> {
         if (state is FetchRoomsSuccess &&
             state.rooms.isNotEmpty &&
             controller.text.isEmpty) {
-          controller.text = state.rooms.first.toString();
-          context.read<JoinRoomCubit>().setRoomId(controller.text);
+          controller.text = state.rooms.first.topic;
+          context.read<JoinRoomCubit>().setTopic(controller.text);
         }
       },
       builder: (context, state) {
@@ -38,7 +38,7 @@ class _EnterRoomTextFieldWidgetState extends State<EnterRoomTextFieldWidget> {
           children: [
             TextField(
               controller: controller,
-              onChanged: context.read<JoinRoomCubit>().setRoomId,
+              onChanged: context.read<JoinRoomCubit>().setTopic,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: '1',
@@ -73,12 +73,12 @@ class _EnterRoomTextFieldWidgetState extends State<EnterRoomTextFieldWidget> {
                               onTap: () {
                                 context
                                     .read<JoinRoomCubit>()
-                                    .setRoomId(state.rooms[index].toString());
-                                controller.text = state.rooms[index].toString();
+                                    .setTopic(state.rooms[index].topic);
+                                controller.text = state.rooms[index].topic;
                                 Navigator.pop(context);
                               },
                               title: Text(
-                                'Room ${state.rooms[index]}',
+                                state.rooms[index].topic,
                               ),
                             ),
                           ),

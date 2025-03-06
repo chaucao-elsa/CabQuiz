@@ -4,16 +4,16 @@ import 'package:either_dart/either.dart';
 
 abstract class QuizRepository {
   Future<Either<Failure, Stream<RoomDto>>> listenToRoom({
-    required int roomId,
+    required String topic,
   });
 
   Future<Either<Failure, Stream<int?>>> listenToUserScore({
-    required int roomId,
+    required String topic,
     required String username,
   });
 
   Future<Either<Failure, void>> sendAnswer({
-    required int roomId,
+    required String topic,
     required String username,
     required int answerIndex,
   });

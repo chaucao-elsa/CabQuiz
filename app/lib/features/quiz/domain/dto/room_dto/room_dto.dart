@@ -9,7 +9,7 @@ part 'room_dto.g.dart';
 @freezed
 class RoomDto with _$RoomDto {
   factory RoomDto({
-    required String roomId,
+    required String topic,
     DateTime? startTime,
     QuestionDto? question,
   }) = _RoomDto;
@@ -17,14 +17,14 @@ class RoomDto with _$RoomDto {
   const RoomDto._();
 
   RoomDpo toDpo() => RoomDpo(
-        roomId: roomId,
+        topic: topic,
         startTime: startTime,
         question: question?.toDpo(),
       );
 
   factory RoomDto.fromFirestore(DocumentSnapshot snapshot) {
     return RoomDto(
-      roomId: snapshot.id,
+      topic: snapshot.id,
       startTime: (snapshot['start_time'] as Timestamp?)?.toDate(),
       question: snapshot['current_question'] != null
           ? QuestionDto.fromJson(snapshot['current_question'])

@@ -1,4 +1,5 @@
 import 'package:cabquiz/features/home/domain/repository/home_repository.dart';
+import 'package:cabquiz/features/quiz/models/room_dpo/room_dpo.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'fetch_rooms_cubit.freezed.dart';
@@ -17,7 +18,7 @@ class FetchRoomsCubit extends Cubit<FetchRoomsState> {
     result.fold(
       (l) => emit(FetchRoomsState.failure(l.message)),
       // convert dto to dpo here if needed
-      (r) => emit(FetchRoomsState.success(r)),
+      (r) => emit(FetchRoomsState.success(r.map((e) => e.toDpo()).toList())),
     );
   }
 }
