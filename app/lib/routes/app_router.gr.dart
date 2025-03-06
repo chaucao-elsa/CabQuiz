@@ -39,14 +39,14 @@ class HomeRoute extends _i4.PageRouteInfo<void> {
 class LeaderBoardRoute extends _i4.PageRouteInfo<LeaderBoardRouteArgs> {
   LeaderBoardRoute({
     _i5.Key? key,
-    required String topic,
+    required String roomId,
     required String username,
     List<_i4.PageRouteInfo>? children,
   }) : super(
           LeaderBoardRoute.name,
           args: LeaderBoardRouteArgs(
             key: key,
-            topic: topic,
+            roomId: roomId,
             username: username,
           ),
           initialChildren: children,
@@ -61,7 +61,7 @@ class LeaderBoardRoute extends _i4.PageRouteInfo<LeaderBoardRouteArgs> {
       return _i4.WrappedRoute(
           child: _i2.LeaderBoardPage(
         key: args.key,
-        topic: args.topic,
+        roomId: args.roomId,
         username: args.username,
       ));
     },
@@ -71,19 +71,19 @@ class LeaderBoardRoute extends _i4.PageRouteInfo<LeaderBoardRouteArgs> {
 class LeaderBoardRouteArgs {
   const LeaderBoardRouteArgs({
     this.key,
-    required this.topic,
+    required this.roomId,
     required this.username,
   });
 
   final _i5.Key? key;
 
-  final String topic;
+  final String roomId;
 
   final String username;
 
   @override
   String toString() {
-    return 'LeaderBoardRouteArgs{key: $key, topic: $topic, username: $username}';
+    return 'LeaderBoardRouteArgs{key: $key, roomId: $roomId, username: $username}';
   }
 }
 
@@ -92,14 +92,14 @@ class LeaderBoardRouteArgs {
 class QuizRoute extends _i4.PageRouteInfo<QuizRouteArgs> {
   QuizRoute({
     _i5.Key? key,
-    required String topic,
+    required String roomId,
     required String username,
     List<_i4.PageRouteInfo>? children,
   }) : super(
           QuizRoute.name,
           args: QuizRouteArgs(
             key: key,
-            topic: topic,
+            roomId: roomId,
             username: username,
           ),
           initialChildren: children,
@@ -114,7 +114,7 @@ class QuizRoute extends _i4.PageRouteInfo<QuizRouteArgs> {
       return _i4.WrappedRoute(
           child: _i3.QuizPage(
         key: args.key,
-        topic: args.topic,
+        roomId: args.roomId,
         username: args.username,
       ));
     },
@@ -124,18 +124,18 @@ class QuizRoute extends _i4.PageRouteInfo<QuizRouteArgs> {
 class QuizRouteArgs {
   const QuizRouteArgs({
     this.key,
-    required this.topic,
+    required this.roomId,
     required this.username,
   });
 
   final _i5.Key? key;
 
-  final String topic;
+  final String roomId;
 
   final String username;
 
   @override
   String toString() {
-    return 'QuizRouteArgs{key: $key, topic: $topic, username: $username}';
+    return 'QuizRouteArgs{key: $key, roomId: $roomId, username: $username}';
   }
 }

@@ -10,18 +10,18 @@ part 'room_cubit.freezed.dart';
 part 'room_state.dart';
 
 class RoomCubit extends Cubit<RoomState> {
-  RoomCubit({required this.quizRepository, required this.topic})
+  RoomCubit({required this.quizRepository, required this.roomId})
       : super(const RoomState.initial());
 
   final QuizRepository quizRepository;
-  final String topic;
+  final String roomId;
 
   StreamSubscription<RoomDto>? _subscription;
 
   Future<void> connectToRoom() async {
     emit(const RoomState.connecting());
 
-    final result = await quizRepository.listenToRoom(topic: topic);
+    final result = await quizRepository.listenToRoom(roomId: roomId);
 
     result.fold(
       (l) => emit(RoomState.error(l.message)),

@@ -72,8 +72,11 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 16),
               TextField(
                 onChanged: context.read<JoinRoomCubit>().setUsername,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   hintText: 'chaucao',
+                  hintStyle: TextStyle(
+                    color: Colors.black.withAlpha(50),
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
@@ -100,7 +103,7 @@ class _HomePageState extends State<HomePage> {
               } else if (state.status == JoinRoomStatus.success) {
                 EasyLoading.dismiss();
                 context.router.push(QuizRoute(
-                  topic: state.topic!,
+                  roomId: state.topic!.toLowerCase().replaceAll(' ', '-'),
                   username: state.username!,
                 ));
               }

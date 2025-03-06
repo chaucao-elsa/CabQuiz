@@ -18,7 +18,7 @@ class HomeFirebaseRepository implements HomeRepository {
       final response = await firestore.collection('rooms').get();
       // convert list of room_id to list of int
       final rooms =
-          response.docs.map((doc) => RoomDto.fromJson(doc.data())).toList();
+          response.docs.map((doc) => RoomDto.fromFirestore(doc)).toList();
       return Right(rooms);
     } on FirebaseException catch (e) {
       return Left(Failure.fromFirestoreError(e));
