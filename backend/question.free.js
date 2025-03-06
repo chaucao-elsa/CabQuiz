@@ -14,7 +14,7 @@ async function main(limit = 10) {
     }
     await batch.commit();
 
-    stack.push(await get(limit));
+    if (refs.length === limit) stack.push(await get(limit));
   }
 }
 
