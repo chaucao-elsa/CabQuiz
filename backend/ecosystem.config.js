@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "room.evaluate",
+      name: "question.free",
       script: "question.free.js",
       cwd: "/home/ubuntu/CabQuiz/backend",
     },
