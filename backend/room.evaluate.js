@@ -15,6 +15,8 @@ async function main() {
 }
 
 async function handler(workerId) {
+  const logs = [workerId];
+
   const room = await selectRoom(workerId);
   if (!room) {
     console.log(`[${logs.join(" / ")}] NO_ROOM`);
@@ -22,7 +24,6 @@ async function handler(workerId) {
     return main();
   }
 
-  const logs = [workerId];
   logs.push(room.id);
   logs.push(room.current_question?.id);
 
