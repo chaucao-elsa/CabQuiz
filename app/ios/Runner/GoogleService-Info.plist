@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBU_M7v4E81-7LK5fHkXBQtrW1YbVVeHks</string>
+	<string>AIzaSyAsYzlnehnnnZp3EZuKYJMlWL_kF7CJZ50</string>
 	<key>GCM_SENDER_ID</key>
-	<string>795410787224</string>
+	<string>721018866056</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.cabquiz</string>
 	<key>PROJECT_ID</key>
-	<string>cabquiz-15446</string>
+	<string>elsa-cabquiz</string>
 	<key>STORAGE_BUCKET</key>
-	<string>cabquiz-15446.appspot.com</string>
+	<string>elsa-cabquiz.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:795410787224:ios:37da70c3a8b0a4b33dd9ed</string>
+	<string>1:721018866056:ios:5bd5b70484cdb432f6523d</string>
 </dict>
 </plist>

@@ -47,28 +47,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBTzJEn5jbqR5oOxP9FwyBTnZ18M0F4lBo',
-    appId: '1:795410787224:web:ebad58d99e94076f3dd9ed',
-    messagingSenderId: '795410787224',
-    projectId: 'cabquiz-15446',
-    authDomain: 'cabquiz-15446.firebaseapp.com',
-    storageBucket: 'cabquiz-15446.appspot.com',
+    apiKey: 'AIzaSyBD7_OazWx2UTKMirjvKt9-xfOQKNHvHGg',
+    appId: '1:721018866056:web:9b8f2d61f388fcdaf6523d',
+    messagingSenderId: '721018866056',
+    projectId: 'elsa-cabquiz',
+    authDomain: 'elsa-cabquiz.firebaseapp.com',
+    storageBucket: 'elsa-cabquiz.firebasestorage.app',
+    measurementId: 'G-MMW8FR7Z18',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDZdZ4_bILdDEFj4w3lJTLLy_jlSq7_uiA',
-    appId: '1:795410787224:android:efb24a927becd16d3dd9ed',
-    messagingSenderId: '795410787224',
-    projectId: 'cabquiz-15446',
-    storageBucket: 'cabquiz-15446.appspot.com',
+    apiKey: 'AIzaSyDbgdc5-gAiVMt_NGNf6SaFmHSspwnIf1c',
+    appId: '1:721018866056:android:537e6d897602ce00f6523d',
+    messagingSenderId: '721018866056',
+    projectId: 'elsa-cabquiz',
+    storageBucket: 'elsa-cabquiz.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBU_M7v4E81-7LK5fHkXBQtrW1YbVVeHks',
-    appId: '1:795410787224:ios:37da70c3a8b0a4b33dd9ed',
-    messagingSenderId: '795410787224',
-    projectId: 'cabquiz-15446',
-    storageBucket: 'cabquiz-15446.appspot.com',
+    apiKey: 'AIzaSyAsYzlnehnnnZp3EZuKYJMlWL_kF7CJZ50',
+    appId: '1:721018866056:ios:5bd5b70484cdb432f6523d',
+    messagingSenderId: '721018866056',
+    projectId: 'elsa-cabquiz',
+    storageBucket: 'elsa-cabquiz.firebasestorage.app',
     iosBundleId: 'com.example.cabquiz',
   );
+
 }

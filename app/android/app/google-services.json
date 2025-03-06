@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "795410787224",
-    "project_id": "cabquiz-15446",
-    "storage_bucket": "cabquiz-15446.appspot.com"
+    "project_number": "721018866056",
+    "project_id": "elsa-cabquiz",
+    "storage_bucket": "elsa-cabquiz.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:795410787224:android:efb24a927becd16d3dd9ed",
+        "mobilesdk_app_id": "1:721018866056:android:537e6d897602ce00f6523d",
         "android_client_info": {
-          "package_name": "com.cabqui"
+          "package_name": "com.example.cabquiz"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDZdZ4_bILdDEFj4w3lJTLLy_jlSq7_uiA"
+          "current_key": "AIzaSyDbgdc5-gAiVMt_NGNf6SaFmHSspwnIf1c"
         }
       ],
       "services": {
