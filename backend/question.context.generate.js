@@ -54,6 +54,7 @@ async function handler(room) {
     const question = await generate(room);
     question.id = `question_${Date.now()}_${i}`;
     question.room_id = room.id;
+    question.used_at = Date.now();
 
     await admin
       .firestore()

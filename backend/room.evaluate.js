@@ -74,11 +74,12 @@ async function selectQuestion(room) {
       .firestore()
       .collection("questions")
       .where("room_id", "==", room.id)
+      .orderBy("used_at", "asc")
       .limit(1);
     const snapshots = await tx.get(ref);
     if (snapshots.size === 0) return null;
 
-    tx.update(snapshots.docs[0].ref, { room_id: "-" });
+    tx.update(snapshots.docs[0].ref, { used_at: Date.now() });
     return snapshots.docs[0].data();
   });
 }
