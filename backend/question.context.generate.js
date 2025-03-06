@@ -1,5 +1,7 @@
 require("./firebase-admin");
 const admin = require("firebase-admin");
+const _ = require("lodash");
+
 const openai = require("./openai");
 const { SYSTEM_PROMPT } = require("./constants");
 const { selectRoom } = require("./room.evaluate");
@@ -78,10 +80,12 @@ async function generate(room) {
 
   const content = response.choices[0].message.content;
   const question = JSON.parse(content);
-  question.options = Object.values(question.options).map((o) => ({
-    score: Number(o.score),
-    text: o.text,
-  }));
+  question.options = _.shuffle(
+    Object.values(question.options).map((o) => ({
+      score: Number(o.score),
+      text: o.text,
+    }))
+  );
 
   return question;
 }
