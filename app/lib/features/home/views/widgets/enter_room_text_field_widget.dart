@@ -2,7 +2,6 @@ import 'package:cabquiz/features/home/blocs/fetch_rooms_cubit/fetch_rooms_cubit.
 import 'package:cabquiz/features/home/blocs/join_room_cubit/join_room_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EnterRoomTextFieldWidget extends StatefulWidget {
   const EnterRoomTextFieldWidget({
@@ -43,14 +42,14 @@ class _EnterRoomTextFieldWidgetState extends State<EnterRoomTextFieldWidget> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 hintText: '1',
-                suffixIconConstraints: BoxConstraints(
-                  maxHeight: 32.h,
+                suffixIconConstraints: const BoxConstraints(
+                  maxHeight: 32,
                 ),
                 suffixIcon: switch (state) {
-                  FetchRoomsLoading() => SizedBox(
-                      height: 32.h,
-                      width: 32.w,
-                      child: const CircularProgressIndicator(),
+                  FetchRoomsLoading() => const SizedBox(
+                      height: 32,
+                      width: 32,
+                      child: CircularProgressIndicator(),
                     ),
                   FetchRoomsFailure() => const Text('error'),
                   FetchRoomsSuccess() => IconButton(
@@ -58,16 +57,16 @@ class _EnterRoomTextFieldWidgetState extends State<EnterRoomTextFieldWidget> {
                         // show modal bottom sheet with list of rooms
                         showModalBottomSheet(
                           context: context,
-                          shape: RoundedRectangleBorder(
+                          shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16.r),
-                              topRight: Radius.circular(16.r),
+                              topLeft: Radius.circular(16),
+                              topRight: Radius.circular(16),
                             ),
                           ),
                           builder: (_) => ListView.builder(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 16.h,
-                              horizontal: 16.w,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 16,
                             ),
                             itemCount: state.rooms.length,
                             itemBuilder: (_, index) => ListTile(

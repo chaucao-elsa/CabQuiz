@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:cabquiz/resources/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // AI generated code
 class QuestionTimerWidget extends StatefulWidget {
@@ -56,25 +55,25 @@ class QuestionTimerWidgetState extends State<QuestionTimerWidget> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(height: 12.h),
+        const SizedBox(height: 12),
         Text(
           'Time left: $_secondsLeft seconds',
-          style: TextStyle(
-            fontSize: 18.sp,
+          style: const TextStyle(
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 8.h),
+        const SizedBox(height: 8),
         ClipRRect(
-          borderRadius: BorderRadius.circular(4.r),
+          borderRadius: BorderRadius.circular(4),
           child: LinearProgressIndicator(
             value: _secondsLeft / 15,
-            minHeight: 8.h,
+            minHeight: 8,
             backgroundColor: AppColors.greyScale200,
             valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
           ),
         ),
-        SizedBox(height: 12.h),
+        const SizedBox(height: 12),
       ],
     );
   }

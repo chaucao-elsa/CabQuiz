@@ -5,7 +5,6 @@ import 'package:cabquiz/routes/app_router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,69 +28,66 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(430, 932),
-      builder: (context, child) => MaterialApp.router(
-        routerConfig: router.config(),
-        title: 'Cab Quiz',
-        builder: EasyLoading.init(),
-        theme: ThemeData(
-          fontFamily: FontFamily.nunito,
-          textTheme: TextTheme(
-            bodyMedium: TextStyle(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.greyScale900,
-            ),
-            bodyLarge: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.greyScale900,
-            ),
+    return MaterialApp.router(
+      routerConfig: router.config(),
+      title: 'Cab Quiz',
+      builder: EasyLoading.init(),
+      theme: ThemeData(
+        fontFamily: FontFamily.nunito,
+        textTheme: const TextTheme(
+          bodyMedium: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColors.greyScale900,
           ),
-          inputDecorationTheme: InputDecorationTheme(
-            hintStyle: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.bold,
-              color: AppColors.greyScale500,
-            ),
+          bodyLarge: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: AppColors.greyScale900,
           ),
-          appBarTheme: AppBarTheme(
-            backgroundColor: Colors.transparent,
-            foregroundColor: Colors.black,
-            elevation: 0,
-            centerTitle: true,
-            titleTextStyle: TextStyle(
-              fontSize: 24.sp,
-              fontWeight: FontWeight.w500,
-              color: AppColors.greyScale900,
-            ),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ElevatedButton.styleFrom(
-              textStyle: TextStyle(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100.r),
-              ),
-            ),
-          ),
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              textStyle: TextStyle(
-                fontSize: 24.sp,
-                fontWeight: FontWeight.w500,
-              ),
-              foregroundColor: AppColors.greyScale900,
-            ),
-          ),
-          colorScheme: const ColorScheme.light(
-            primary: AppColors.primary,
-          ),
-          useMaterial3: false,
         ),
+        inputDecorationTheme: const InputDecorationTheme(
+          hintStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: AppColors.greyScale500,
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          elevation: 0,
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            color: AppColors.greyScale900,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            textStyle: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(100),
+            ),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            textStyle: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.w500,
+            ),
+            foregroundColor: AppColors.greyScale900,
+          ),
+        ),
+        colorScheme: const ColorScheme.light(
+          primary: AppColors.primary,
+        ),
+        useMaterial3: false,
       ),
     );
   }
