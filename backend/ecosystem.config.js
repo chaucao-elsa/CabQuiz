@@ -1,12 +1,12 @@
 module.exports = {
   apps: [
     {
-      name: "question.free",
+      name: "cabquiz.question.free",
       script: "question.free.js",
       cwd: "/home/ubuntu/CabQuiz/backend",
     },
     {
-      name: "room.evaluate",
+      name: "cabquiz.room.evaluate",
       script: "room.evaluate.js",
       cwd: "/home/ubuntu/CabQuiz/backend",
     },
