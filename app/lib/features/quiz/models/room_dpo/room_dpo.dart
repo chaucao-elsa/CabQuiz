@@ -13,4 +13,6 @@ class RoomDpo with _$RoomDpo {
   }) = _RoomDpo;
 
   const RoomDpo._();
+
+  String get id => topic.toLowerCase().replaceAll(' ', '-');
 }

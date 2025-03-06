@@ -4,6 +4,6 @@ import 'package:either_dart/either.dart';
 
 abstract class LeaderBoardRepository {
   Future<Either<Failure, Stream<List<LeaderBoardDto>>>> listenToLeaderBoard({
-    required String topic,
+    required String roomId,
   });
 }

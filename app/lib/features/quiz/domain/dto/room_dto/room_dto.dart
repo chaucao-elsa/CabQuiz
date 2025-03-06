@@ -24,7 +24,7 @@ class RoomDto with _$RoomDto {
 
   factory RoomDto.fromFirestore(DocumentSnapshot snapshot) {
     return RoomDto(
-      topic: snapshot.id,
+      topic: snapshot['topic'],
       startTime: (snapshot['start_time'] as Timestamp?)?.toDate(),
       question: snapshot['current_question'] != null
           ? QuestionDto.fromJson(snapshot['current_question'])

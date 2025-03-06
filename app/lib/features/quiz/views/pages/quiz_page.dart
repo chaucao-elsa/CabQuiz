@@ -17,9 +17,9 @@ import 'package:random_avatar/random_avatar.dart';
 
 @RoutePage()
 class QuizPage extends StatelessWidget implements AutoRouteWrapper {
-  const QuizPage({super.key, required this.topic, required this.username});
+  const QuizPage({super.key, required this.roomId, required this.username});
 
-  final String topic;
+  final String roomId;
   final String username;
 
   @override
@@ -30,13 +30,13 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
         providers: [
           BlocProvider(
             create: (context) => RoomCubit(
-              topic: topic,
+              roomId: roomId,
               quizRepository: context.read<QuizRepository>(),
             )..connectToRoom(),
           ),
           BlocProvider(
             create: (context) => UserScoreCubit(
-              topic: topic,
+              roomId: roomId,
               username: username,
               quizRepository: context.read<QuizRepository>(),
             )..connectToUserScore(),
@@ -52,7 +52,14 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Room $topic'),
+        title: Text(
+          roomId.replaceAll('-', ' '),
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
         leadingWidth: 100,
         leading: TextButton(
           onPressed: context.router.maybePop,
@@ -62,7 +69,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
           IconButton(
             onPressed: () {
               context.router.push(LeaderBoardRoute(
-                topic: topic,
+                roomId: roomId,
                 username: username,
               ));
             },
@@ -111,7 +118,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
                                           .read<QuizRepository>()
                                           .sendAnswer(
                                             answerIndex: index,
-                                            topic: topic,
+                                            roomId: roomId,
                                             username: username,
                                           );
                                       EasyLoading.dismiss();

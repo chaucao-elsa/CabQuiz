@@ -13,12 +13,12 @@ class LeaderBoardFirebaseRepository implements LeaderBoardRepository {
 
   @override
   Future<Either<Failure, Stream<List<LeaderBoardDto>>>> listenToLeaderBoard(
-      {required String topic}) async {
+      {required String roomId}) async {
     try {
       return Right(
         firestore
             .collection('rooms')
-            .doc(topic)
+            .doc(roomId)
             .collection('participants')
             .orderBy('score', descending: true)
             .snapshots()

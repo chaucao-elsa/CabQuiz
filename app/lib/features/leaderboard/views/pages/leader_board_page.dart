@@ -11,11 +11,11 @@ import 'package:random_avatar/random_avatar.dart';
 class LeaderBoardPage extends StatelessWidget implements AutoRouteWrapper {
   const LeaderBoardPage({
     super.key,
-    required this.topic,
+    required this.roomId,
     required this.username,
   });
 
-  final String topic;
+  final String roomId;
   final String username;
 
   @override
@@ -25,7 +25,7 @@ class LeaderBoardPage extends StatelessWidget implements AutoRouteWrapper {
       child: BlocProvider(
         create: (context) => LeaderBoardCubit(
           leaderBoardRepository: context.read<LeaderBoardRepository>(),
-          topic: topic,
+          roomId: roomId,
         )..connectToLeaderBoard(),
         child: this,
       ),
