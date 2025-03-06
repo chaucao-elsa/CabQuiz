@@ -41,6 +41,11 @@ async function main() {
   if (!workerId) throw new Error("worker id must be set");
 
   const room = await selectRoom(workerId);
+  if (!room) {
+    console.log(`[${workerId}] NO_ROOM`);
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    return main();
+  }
   await handler(room);
 }
 
@@ -48,7 +53,7 @@ async function handler(room) {
   for (let i = 0; i < count; i++) {
     const question = await generate(room);
     question.id = `question_${Date.now()}_${i}`;
-    question.room_id = "-";
+    question.room_id = room.id;
 
     await admin
       .firestore()

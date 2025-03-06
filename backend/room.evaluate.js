@@ -73,7 +73,7 @@ async function selectQuestion(room) {
     const ref = admin
       .firestore()
       .collection("questions")
-      .where("room_id", "==", "-")
+      .where("room_id", "==", room.id)
       .limit(1);
     const snapshots = await tx.get(ref);
     if (snapshots.size === 0) return null;
