@@ -1,14 +1,5 @@
 # CabQuiz
 
-![simulator_screenshot_7FFADA1E-D909-4C9E-AA41-DEBB0575E34E](https://github.com/user-attachments/assets/e62370f8-2e89-4039-bf2c-2c4607e40d85)
-
-![simulator_screenshot_A76A44D6-533F-49F9-8DD6-8C9390E6D2A4](https://github.com/user-attachments/assets/ad0831e7-a8d2-4e42-8405-8df9b7bc2c81)
-
-![simulator_screenshot_7964912E-EB7F-4B80-83D5-29B15662264D](https://github.com/user-attachments/assets/5a736cf0-efb0-4d57-9f2d-9b8b9caadcff)
-
-![simulator_screenshot_CBBF9382-2147-45EA-BE06-0383F0FF73C5](https://github.com/user-attachments/assets/aac7ac2e-07a4-4b64-bf55-559d7276e631)
-
-# How to run.
 
 
 ## Run app
