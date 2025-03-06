@@ -1,13 +1,23 @@
 module.exports = {
   apps: [
     {
-      name: "cabquiz.question.free",
+      name: "cabquiz.question.free.worker_1",
       script: "question.free.js",
       cwd: "/home/ubuntu/CabQuiz/backend",
     },
     {
-      name: "cabquiz.room.evaluate",
-      script: "room.evaluate.js",
+      name: "cabquiz.room.evaluate.worker_1",
+      script: "room.evaluate.js worker_1",
+      cwd: "/home/ubuntu/CabQuiz/backend",
+    },
+    {
+      name: "cabquiz.room.evaluate.worker_2",
+      script: "room.evaluate.js worker_2",
+      cwd: "/home/ubuntu/CabQuiz/backend",
+    },
+    {
+      name: "cabquiz.room.evaluate.worker_3",
+      script: "room.evaluate.js worker_3",
       cwd: "/home/ubuntu/CabQuiz/backend",
     },
   ],
