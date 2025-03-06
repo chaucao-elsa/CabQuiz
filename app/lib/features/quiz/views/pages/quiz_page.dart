@@ -17,9 +17,9 @@ import 'package:random_avatar/random_avatar.dart';
 
 @RoutePage()
 class QuizPage extends StatelessWidget implements AutoRouteWrapper {
-  const QuizPage({super.key, required this.roomId, required this.username});
+  const QuizPage({super.key, required this.topic, required this.username});
 
-  final int roomId;
+  final String topic;
   final String username;
 
   @override
@@ -30,13 +30,13 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
         providers: [
           BlocProvider(
             create: (context) => RoomCubit(
-              roomId: roomId,
+              topic: topic,
               quizRepository: context.read<QuizRepository>(),
             )..connectToRoom(),
           ),
           BlocProvider(
             create: (context) => UserScoreCubit(
-              roomId: roomId,
+              topic: topic,
               username: username,
               quizRepository: context.read<QuizRepository>(),
             )..connectToUserScore(),
@@ -52,7 +52,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Room $roomId'),
+        title: Text('Room $topic'),
         leadingWidth: 100,
         leading: TextButton(
           onPressed: context.router.maybePop,
@@ -62,7 +62,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
           IconButton(
             onPressed: () {
               context.router.push(LeaderBoardRoute(
-                roomId: roomId,
+                topic: topic,
                 username: username,
               ));
             },
@@ -111,7 +111,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
                                           .read<QuizRepository>()
                                           .sendAnswer(
                                             answerIndex: index,
-                                            roomId: roomId,
+                                            topic: topic,
                                             username: username,
                                           );
                                       EasyLoading.dismiss();

@@ -15,24 +15,24 @@ class JoinRoomCubit extends Cubit<JoinRoomState> {
     emit(state.copyWith(username: username));
   }
 
-  void setRoomId(String? roomId) {
-    emit(state.copyWith(roomId: int.tryParse(roomId ?? '')));
+  void setTopic(String? topic) {
+    emit(state.copyWith(topic: topic));
   }
 
   Future<void> joinRoom() async {
     emit(state.copyWith(status: JoinRoomStatus.loading));
 
-    if (state.username == null || state.roomId == null) {
+    if (state.username == null || state.topic == null) {
       emit(state.copyWith(
         status: JoinRoomStatus.failure,
-        errorMessage: 'Username and room ID are required',
+        errorMessage: 'Username and topic are required',
       ));
       return;
     }
 
     final result = await repository.joinRoom(
       user: UserDto(username: state.username!),
-      roomId: state.roomId!,
+      topic: state.topic!,
     );
 
     result.fold(

@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(height: 24),
-              const Text('Room number'),
+              const Text('Room topic'),
               const SizedBox(height: 16),
               const EnterRoomTextFieldWidget(),
             ],
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
               } else if (state.status == JoinRoomStatus.success) {
                 EasyLoading.dismiss();
                 context.router.push(QuizRoute(
-                  roomId: state.roomId!,
+                  topic: state.topic!,
                   username: state.username!,
                 ));
               }

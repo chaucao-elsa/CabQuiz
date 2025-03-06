@@ -12,18 +12,18 @@ part 'leader_board_state.dart';
 class LeaderBoardCubit extends Cubit<LeaderBoardState> {
   LeaderBoardCubit({
     required this.leaderBoardRepository,
-    required this.roomId,
+    required this.topic,
   }) : super(const LeaderBoardState.initial());
 
   final LeaderBoardRepository leaderBoardRepository;
-  final int roomId;
+  final String topic;
   StreamSubscription<List<LeaderBoardDto>>? _subscription;
 
   Future<void> connectToLeaderBoard() async {
     emit(const LeaderBoardState.connecting());
 
     final result = await leaderBoardRepository.listenToLeaderBoard(
-      roomId: roomId,
+      topic: topic,
     );
 
     result.fold(

@@ -10,12 +10,12 @@ part 'user_score_state.dart';
 class UserScoreCubit extends Cubit<UserScoreState> {
   UserScoreCubit({
     required this.quizRepository,
-    required this.roomId,
+    required this.topic,
     required this.username,
   }) : super(const UserScoreState.initial());
 
   final QuizRepository quizRepository;
-  final int roomId;
+  final String topic;
   final String username;
   StreamSubscription<int?>? _subscription;
   int _previousScore = 0;
@@ -24,7 +24,7 @@ class UserScoreCubit extends Cubit<UserScoreState> {
     emit(const UserScoreState.connecting());
 
     final result = await quizRepository.listenToUserScore(
-      roomId: roomId,
+      topic: topic,
       username: username,
     );
 

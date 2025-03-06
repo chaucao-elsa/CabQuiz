@@ -13,10 +13,10 @@ class QuizFirebaseRepository implements QuizRepository {
 
   @override
   Future<Either<Failure, Stream<RoomDto>>> listenToRoom(
-      {required int roomId}) async {
+      {required String topic}) async {
     try {
       return Right(
-        firestore.collection('rooms').doc('room_$roomId').snapshots().map(
+        firestore.collection('rooms').doc(topic).snapshots().map(
               (snapshot) => RoomDto.fromFirestore(snapshot),
             ),
       );
@@ -29,14 +29,14 @@ class QuizFirebaseRepository implements QuizRepository {
 
   @override
   Future<Either<Failure, Stream<int?>>> listenToUserScore({
-    required int roomId,
+    required String topic,
     required String username,
   }) async {
     try {
       return Right(
         firestore
             .collection('rooms')
-            .doc('room_$roomId')
+            .doc(topic)
             .collection('participants')
             .doc(username)
             .snapshots()
@@ -51,13 +51,13 @@ class QuizFirebaseRepository implements QuizRepository {
 
   @override
   Future<Either<Failure, void>> sendAnswer(
-      {required int roomId,
+      {required String topic,
       required String username,
       required int answerIndex}) async {
     try {
       await firestore
           .collection('rooms')
-          .doc('room_$roomId')
+          .doc(topic)
           .collection('participants')
           .doc(username)
           .update({
