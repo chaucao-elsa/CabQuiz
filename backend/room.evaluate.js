@@ -78,7 +78,7 @@ async function selectQuestion(room) {
     const snapshots = await tx.get(ref);
     if (snapshots.size === 0) return null;
 
-    tx.update(snapshots.docs[0].ref, { room_id: room.id });
+    tx.update(snapshots.docs[0].ref, { room_id: "-" });
     return snapshots.docs[0].data();
   });
 }
