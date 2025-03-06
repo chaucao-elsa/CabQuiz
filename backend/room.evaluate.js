@@ -1,5 +1,6 @@
 require("./firebase-admin");
 const admin = require("firebase-admin");
+const { random } = require("./utils");
 
 const MAX_SCORE = 100;
 const MIN_SCORE = 20;
@@ -146,10 +147,6 @@ async function evaluate(logs, workerId, room) {
 function calculateScore(scale, time) {
   const score = MAX_SCORE - ((MAX_SCORE - MIN_SCORE) * time) / TOTAL_TIME;
   return Math.round(score * scale);
-}
-
-function random(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 module.exports = { selectRoom };

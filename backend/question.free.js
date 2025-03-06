@@ -1,6 +1,7 @@
 require("./firebase-admin");
 const admin = require("firebase-admin");
 const _ = require("lodash");
+const { random } = require("./utils");
 
 main();
 
@@ -10,11 +11,10 @@ async function main(limit = 100) {
     const docs = stack.pop();
     const batch = admin.firestore().batch();
     for (let doc of docs) {
-      console.log(JSON.stringify(doc.data(), null, 2));
       console.log(`${doc.id} ...`);
       batch.update(doc.ref, {
         options: _.shuffle(doc.data().options),
-        room_id: "-",
+        schedule_at: Date.now() + 1000 * 60 * random(30, 60),
       });
     }
     await batch.commit();

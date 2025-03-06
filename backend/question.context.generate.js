@@ -52,7 +52,7 @@ async function main() {
 }
 
 async function handler(room, start) {
-  if ((Date.now() - start) / 1000 / 60 / 30 > 1) return;
+  if ((Date.now() - start) / 1000 / 60 / 15 > 1) return;
 
   for (let i = 0; i < count; i++) {
     const question = await generate(room);
@@ -68,7 +68,7 @@ async function handler(room, start) {
     console.log(`[${question.id}] GENERATED`);
   }
 
-  return handler(room);
+  return handler(room, start);
 }
 
 async function generate(room) {
