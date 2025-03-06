@@ -33,7 +33,7 @@ Interesting, engaging content with a challenging nature
 Suitable for a response time of 20-30 seconds`;
 
 const workerId = process.argv[2];
-const count = Number(process.argv[3] || 15);
+const count = Number(process.argv[3] || 5);
 
 if (process.argv[1] === __filename) main();
 
