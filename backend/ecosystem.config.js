@@ -20,5 +20,15 @@ module.exports = {
       script: "node room.evaluate.js worker_3",
       cwd: "/home/ubuntu/CabQuiz/backend",
     },
+    {
+      name: "cabquiz.room.evaluate.worker_4",
+      script: "node room.evaluate.js worker_4",
+      cwd: "/home/ubuntu/CabQuiz/backend",
+    },
+    {
+      name: "cabquiz.room.evaluate.worker_5",
+      script: "node room.evaluate.js worker_5",
+      cwd: "/home/ubuntu/CabQuiz/backend",
+    },
   ],
 };
