@@ -4,7 +4,7 @@ const _ = require("lodash");
 
 main();
 
-async function main(limit = 10) {
+async function main(limit = 100) {
   const stack = [await get(limit)];
   while (stack.length > 0) {
     const docs = stack.pop();
@@ -19,7 +19,8 @@ async function main(limit = 10) {
     }
     await batch.commit();
 
-    if (docs.length === limit) stack.push(await get(limit));
+    await new Promise((resolve) => setTimeout(resolve, 350000));
+    stack.push(await get(limit));
   }
 }
 
