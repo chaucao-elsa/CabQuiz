@@ -42,10 +42,11 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-
 # Freezed
 /lib/features/**/*.freezed.dart
 
-
 # Generated
 /lib/features/**/*.g.dart
+
+# FVM Version Cache
+.fvm/
