@@ -1,6 +1,10 @@
 require("./firebase-admin");
 const admin = require("firebase-admin");
 
+const MAX_SCORE = 100;
+const MIN_SCORE = 20;
+const TOTAL_TIME = 15;
+
 if (process.argv[1] === __filename) main();
 
 async function main() {
@@ -110,7 +114,12 @@ async function evaluate(logs, workerId, room) {
         Number.isSafeInteger(participant.last_answer) &&
         room.current_question.options[participant.last_answer];
 
-      const score = Number(answer && answer.score) || 0;
+      const time = Math.min(
+        (participant.answer_time.toMillis() - room.start_time.toMillis()) /
+          1000,
+        TOTAL_TIME
+      );
+      const score = calculateScore(Number(answer && answer.score) || 0, time);
 
       console.log(`[${logs.join(" / ")}] ${score} score`);
       batch.update(participantRef, {
@@ -130,4 +139,8 @@ async function evaluate(logs, workerId, room) {
   await batch.commit();
 }
 
+function calculateScore(scale, time) {
+  const score = MAX_SCORE - ((MAX_SCORE - MIN_SCORE) * time) / TOTAL_TIME;
+  return Math.round(score * scale);
+}
 module.exports = { selectRoom };
