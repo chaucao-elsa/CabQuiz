@@ -80,7 +80,7 @@ async function selectQuestion(room) {
     if (snapshots.size === 0) return null;
 
     tx.update(snapshots.docs[0].ref, {
-      schedule_at: Date.now() + 1000 * 60 * 60 * random(3, 24),
+      schedule_at: Date.now() + 1000 * 60 * random(30, 60),
     });
     return snapshots.docs[0].data();
   });
