@@ -74,12 +74,14 @@ async function selectQuestion(room) {
       .firestore()
       .collection("questions")
       .where("room_id", "==", room.id)
-      .orderBy("used_at", "asc")
+      .orderBy("schedule_at", "asc")
       .limit(1);
     const snapshots = await tx.get(ref);
     if (snapshots.size === 0) return null;
 
-    tx.update(snapshots.docs[0].ref, { used_at: Date.now() });
+    tx.update(snapshots.docs[0].ref, {
+      schedule_at: Date.now() + 1000 * 60 * 60 * random(3, 24),
+    });
     return snapshots.docs[0].data();
   });
 }
@@ -145,4 +147,9 @@ function calculateScore(scale, time) {
   const score = MAX_SCORE - ((MAX_SCORE - MIN_SCORE) * time) / TOTAL_TIME;
   return Math.round(score * scale);
 }
+
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 module.exports = { selectRoom };
