@@ -17,8 +17,12 @@ const QUESTION_TYPE = {
   4. Use simple vocabulary and real-life contexts (e.g., shopping, greetings, daily routines).
   5. Only return the output as JSON format with these fields:
      - question (string)
-     - options (array of 4 strings)
+     - options (array of 4 object, each object has a string property names content and one property names score)
      - correct_answer_index (integer, 0-3)`,
+  },
+  context: {
+    system: "",
+    user: "",
   },
 };
 

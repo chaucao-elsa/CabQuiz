@@ -6,7 +6,6 @@ const {
   ROOM_STATUS_ONGOING_EVALUATE,
   COLLECTIONS,
 } = require("./constants");
-const openai = require("./openai");
 
 main();
 
@@ -14,11 +13,13 @@ async function main() {
   const room = await selectRoom();
   if (!room) {
     console.log("NO_ROOM");
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 3000));
     return main();
   }
 
-  return handler(room.id);
+  console.log(`[${room.id}] evaluating`);
+  await handler(room.id);
+  return main();
 }
 
 async function handler(roomId) {
@@ -30,7 +31,6 @@ async function handler(roomId) {
         .doc(roomId)
         .get()
         .then((s) => s.data());
-      console.log(`[${room.id}] evaluating`);
 
       if (room.question_ongoing_index >= room.questions.length) {
         console.log(`[${room.id}] reached latest`);
@@ -48,9 +48,10 @@ async function handler(roomId) {
         const participant = room.participants[id];
         if (!participant.answer_index) participant.answer_index = -1;
 
-        if (question.correct_answer_index === participant.answer_index) {
+        const option = question.options[participant.answer_index];
+        if (typeof option.score === "number") {
           updates[`participants.${id}.score`] =
-            participant.score + question.score;
+            participant.score + option.score;
         }
       }
 

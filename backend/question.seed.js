@@ -30,8 +30,6 @@ async function main() {
   while (count > 0) {
     try {
       const question = await genQuestion(room);
-      if (!question.score) question.score = 1;
-
       await addQuestionToRoom(room, question);
       console.log(`[${room.id}] remaining ${--count} questions`);
     } catch (err) {
