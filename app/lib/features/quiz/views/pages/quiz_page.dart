@@ -74,27 +74,31 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
       ),
       body: Column(
         children: [
-          BlocBuilder<RoomCubit, RoomState>(
-            builder: (context, state) {
-              if (state is RoomConnected) {
-                final question = state.room.question;
-                final startTime = state.room.startTime;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                  child: Column(
-                    children: [
-                      if (startTime != null)
-                        QuestionTimerWidget(
-                          key: ValueKey(startTime),
-                          startTime: startTime,
-                        ),
-                      const SizedBox(height: 12),
-                      if (question != null)
-                        Column(
-                          children: [
-                            _buildQuestionBoard(question),
-                            const SizedBox(height: 24),
-                            AnswerSectionWidget(
+          Expanded(
+            child: BlocBuilder<RoomCubit, RoomState>(
+              builder: (context, state) {
+                if (state is RoomConnected) {
+                  final question = state.room.question;
+                  final startTime = state.room.startTime;
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      children: [
+                        if (startTime != null)
+                          QuestionTimerWidget(
+                            key: ValueKey(startTime),
+                            startTime: startTime,
+                          ),
+                        const SizedBox(height: 12),
+                        if (question != null) ...[
+                          Flexible(
+                            flex: 2,
+                            child: _buildQuestionBoard(question),
+                          ),
+                          const SizedBox(height: 24),
+                          Flexible(
+                            flex: 3,
+                            child: AnswerSectionWidget(
                               question: question,
                               selectedAnswer: state.room.userAnswer,
                               onAnswerSelected: state.room.userAnswer != null
@@ -121,18 +125,20 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
                                       );
                                     },
                             ),
-                          ],
-                        ),
-                    ],
-                  ),
-                );
-              } else if (state is RoomError) {
-                return Center(child: Text(state.errorMessage));
-              }
-              return const Center(child: Text('connecting...'));
-            },
+                          ),
+                        ],
+                      ],
+                    ),
+                  );
+                } else if (state is RoomError) {
+                  return Center(child: Text(state.errorMessage));
+                }
+                return const Center(child: Text('connecting...'));
+              },
+            ),
           ),
           _buildCurrentUserInfo(),
+          const SizedBox(height: 24),
         ],
       ),
     );
@@ -141,7 +147,6 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
   Widget _buildQuestionBoard(QuestionDpo question) {
     return Container(
       width: double.infinity,
-      height: 210,
       padding: const EdgeInsets.symmetric(horizontal: 24),
       alignment: Alignment.center,
       decoration: BoxDecoration(
@@ -151,14 +156,29 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
           color: AppColors.greyScale200,
         ),
       ),
-      child: Text(
-        question.questionText,
-        maxLines: 3,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            question.context,
+            maxLines: 3,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 24),
+          Text(
+            question.questionText,
+            style: const TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+            maxLines: 3,
+            textAlign: TextAlign.center,
+          ),
+        ],
       ),
     );
   }

@@ -15,42 +15,77 @@ class AnswerSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
-        childAspectRatio: 1.1,
-      ),
-      itemCount: question.options.length,
-      itemBuilder: (context, index) {
-        final answer = question.options[index];
-        final isSelected = selectedAnswer == index;
-        return ElevatedButton(
-          // if isSelected, keep the button active but do nothing
-          onPressed: isSelected
-              ? () {}
-              : onAnswerSelected != null
-                  ? () => onAnswerSelected!(index)
-                  : null,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: answer.color,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(child: _buildAnswerButton(question.options[0], 0)),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(child: _buildAnswerButton(question.options[2], 2)),
+                ],
+              )
+            ],
           ),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(child: _buildAnswerButton(question.options[1], 1)),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(child: _buildAnswerButton(question.options[3], 3)),
+                ],
+              )
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAnswerButton(AnswerDpo answer, int index) {
+    final isSelected = selectedAnswer == index;
+    return SizedBox(
+      height: 100,
+      child: ElevatedButton(
+        onPressed: isSelected
+            ? () {}
+            : onAnswerSelected != null
+                ? () => onAnswerSelected!(index)
+                : null,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: answer.color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 16),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Text(
             answer.answerText,
+            maxLines: 3,
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 16,
               color: Colors.white,
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

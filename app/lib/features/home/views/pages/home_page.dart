@@ -89,6 +89,7 @@ class _HomePageState extends State<HomePage> {
           width: double.infinity,
           height: 58,
           padding: const EdgeInsets.symmetric(horizontal: 24),
+          margin: const EdgeInsets.symmetric(vertical: 24),
           child: BlocConsumer<JoinRoomCubit, JoinRoomState>(
             listener: (context, state) {
               if (state.status == JoinRoomStatus.loading) {

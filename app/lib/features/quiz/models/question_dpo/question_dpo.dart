@@ -7,6 +7,7 @@ part 'question_dpo.freezed.dart';
 @freezed
 class QuestionDpo with _$QuestionDpo {
   factory QuestionDpo({
+    required String context,
     required String questionText,
     required List<AnswerDpo> options,
   }) = _QuestionDpo;
