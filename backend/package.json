@@ -1,0 +1,14 @@
+{
+  "name": "cabquiz-backend",
+  "version": "1.0.0",
+  "main": "question.seed.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "firebase-admin": "^13.2.0",
+    "openai": "^4.86.2"
+  }
+}
