@@ -13,7 +13,6 @@ import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:random_avatar/random_avatar.dart';
 
 @RoutePage()
@@ -54,7 +53,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Room $roomId'),
-        leadingWidth: 100.w,
+        leadingWidth: 100,
         leading: TextButton(
           onPressed: context.router.maybePop,
           child: const Text('Leave'),
@@ -68,7 +67,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
               ));
             },
             icon: Assets.icons.moreCircle.svg(
-              width: 28.w,
+              width: 28,
             ),
           ),
         ],
@@ -81,7 +80,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
                 final question = state.room.question;
                 final startTime = state.room.startTime;
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
                   child: Column(
                     children: [
                       if (startTime != null)
@@ -89,12 +88,12 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
                           key: ValueKey(startTime),
                           startTime: startTime,
                         ),
-                      SizedBox(height: 12.h),
+                      const SizedBox(height: 12),
                       if (question != null)
                         Column(
                           children: [
                             _buildQuestionBoard(question),
-                            SizedBox(height: 24.h),
+                            const SizedBox(height: 24),
                             AnswerSectionWidget(
                               question: question,
                               selectedAnswer: state.room.userAnswer,
@@ -142,12 +141,12 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
   Widget _buildQuestionBoard(QuestionDpo question) {
     return Container(
       width: double.infinity,
-      height: 210.h,
-      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      height: 210,
+      padding: const EdgeInsets.symmetric(horizontal: 24),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: AppColors.greyScale50,
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: AppColors.greyScale200,
         ),
@@ -156,8 +155,8 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
         question.questionText,
         maxLines: 3,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 24.sp,
+        style: const TextStyle(
+          fontSize: 24,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -193,14 +192,14 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
               children: [
                 RandomAvatar(
                   username,
-                  width: 48.w,
-                  height: 48.w,
+                  width: 48,
+                  height: 48,
                 ),
-                SizedBox(width: 12.w),
+                const SizedBox(width: 12),
                 Text(
                   '$username: ${state.currentScore ?? 0}',
-                  style: TextStyle(
-                    fontSize: 24.sp,
+                  style: const TextStyle(
+                    fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

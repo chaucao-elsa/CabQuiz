@@ -19,6 +19,7 @@ class AnswerDpo with _$AnswerDpo {
   factory AnswerDpo({
     required int index,
     required String answerText,
+    required int score,
   }) = _AnswerDpo;
 
   const AnswerDpo._();

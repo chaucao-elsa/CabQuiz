@@ -1,6 +1,5 @@
 import 'package:cabquiz/features/quiz/models/question_dpo/question_dpo.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AnswerSectionWidget extends StatelessWidget {
   const AnswerSectionWidget({
@@ -19,10 +18,10 @@ class AnswerSectionWidget extends StatelessWidget {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        crossAxisSpacing: 12.w,
-        mainAxisSpacing: 12.h,
+        crossAxisSpacing: 12,
+        mainAxisSpacing: 12,
         childAspectRatio: 1.1,
       ),
       itemCount: question.options.length,
@@ -39,14 +38,14 @@ class AnswerSectionWidget extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: answer.color,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12.r),
+              borderRadius: BorderRadius.circular(12),
             ),
           ),
           child: Text(
             answer.answerText,
             textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16.sp,
+            style: const TextStyle(
+              fontSize: 16,
               color: Colors.white,
             ),
           ),

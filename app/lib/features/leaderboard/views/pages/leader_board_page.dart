@@ -5,7 +5,6 @@ import 'package:cabquiz/features/leaderboard/domain/repository/leader_board_repo
 import 'package:cabquiz/resources/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:random_avatar/random_avatar.dart';
 
 @RoutePage()
@@ -66,16 +65,16 @@ class LeaderBoardPage extends StatelessWidget implements AutoRouteWrapper {
 
           return Column(
             children: [
-              SizedBox(height: 12.h),
-              Divider(
+              const SizedBox(height: 12),
+              const Divider(
                 color: Colors.white,
-                height: 1.h,
-                indent: 24.w,
-                endIndent: 24.w,
+                height: 1,
+                indent: 24,
+                endIndent: 24,
               ),
               Expanded(
                 child: ListView.builder(
-                  padding: EdgeInsets.symmetric(vertical: 24.h),
+                  padding: const EdgeInsets.symmetric(vertical: 24),
                   itemBuilder: (context, index) {
                     final backgroundColor =
                         users[index].username == username ? Colors.white : null;
@@ -84,8 +83,8 @@ class LeaderBoardPage extends StatelessWidget implements AutoRouteWrapper {
                         : Colors.white;
 
                     return Container(
-                      height: 84.h,
-                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      height: 84,
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
                       decoration: BoxDecoration(
                         color: backgroundColor,
                       ),
@@ -95,24 +94,24 @@ class LeaderBoardPage extends StatelessWidget implements AutoRouteWrapper {
                             (index + 1).toString(),
                             style: TextStyle(
                               color: foregroundColor,
-                              fontSize: 20.sp,
+                              fontSize: 20,
                             ),
                           ),
-                          SizedBox(width: 24.w),
+                          const SizedBox(width: 24),
                           SizedBox(
-                            width: 60.w,
-                            height: 60.w,
+                            width: 60,
+                            height: 60,
                             child: RandomAvatar(
                               users[index].username,
                             ),
                           ),
-                          SizedBox(width: 16.w),
+                          const SizedBox(width: 16),
                           Expanded(
                             child: Text(
                               users[index].username,
                               style: TextStyle(
                                 color: foregroundColor,
-                                fontSize: 20.sp,
+                                fontSize: 20,
                               ),
                             ),
                           ),
@@ -120,7 +119,7 @@ class LeaderBoardPage extends StatelessWidget implements AutoRouteWrapper {
                             users[index].score.toString(),
                             style: TextStyle(
                               color: foregroundColor,
-                              fontSize: 20.sp,
+                              fontSize: 20,
                             ),
                           ),
                         ],

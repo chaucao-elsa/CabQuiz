@@ -1,3 +1,4 @@
+import 'package:cabquiz/features/quiz/domain/dto/option_dto/option_dto.dart';
 import 'package:cabquiz/features/quiz/models/question_dpo/question_dpo.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -8,7 +9,7 @@ part 'question_dto.g.dart';
 class QuestionDto with _$QuestionDto {
   factory QuestionDto({
     @JsonKey(name: 'question_text') required String questionText,
-    @JsonKey(name: 'options') required List<String> options,
+    @JsonKey(name: 'options') required List<OptionDto> options,
 
     // user shouldn't see correct answer
     // required String correctOption,
@@ -19,7 +20,7 @@ class QuestionDto with _$QuestionDto {
   QuestionDpo toDpo() {
     final answers = <AnswerDpo>[];
     for (var i = 0; i < options.length; i++) {
-      answers.add(AnswerDpo(answerText: options[i], index: i));
+      answers.add(options[i].toDpo(i));
     }
 
     return QuestionDpo(

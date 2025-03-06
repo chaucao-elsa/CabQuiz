@@ -1,1 +1,42 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"elsa-cabquiz","appId":"1:721018866056:android:537e6d897602ce00f6523d","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"elsa-cabquiz","appId":"1:721018866056:ios:5bd5b70484cdb432f6523d","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"elsa-cabquiz","configurations":{"android":"1:721018866056:android:537e6d897602ce00f6523d","ios":"1:721018866056:ios:5bd5b70484cdb432f6523d","web":"1:721018866056:web:9b8f2d61f388fcdaf6523d"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "elsa-cabquiz",
+          "appId": "1:721018866056:android:537e6d897602ce00f6523d",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "elsa-cabquiz",
+          "appId": "1:721018866056:ios:5bd5b70484cdb432f6523d",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "elsa-cabquiz",
+          "configurations": {
+            "android": "1:721018866056:android:537e6d897602ce00f6523d",
+            "ios": "1:721018866056:ios:5bd5b70484cdb432f6523d",
+            "web": "1:721018866056:web:9b8f2d61f388fcdaf6523d"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "asia-east1"
+    }
+  }
+}
