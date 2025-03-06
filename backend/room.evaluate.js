@@ -63,7 +63,7 @@ async function handler(roomId) {
         .set(updates, { merge: true });
 
       resolve();
-    }, 15000)
+    }, 10000)
   );
 
   return handler(roomId);
