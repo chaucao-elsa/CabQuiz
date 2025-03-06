@@ -4,7 +4,6 @@ import 'package:cabquiz/features/home/blocs/join_room_cubit/join_room_cubit.dart
 import 'package:cabquiz/features/home/domain/repository/home_firebase_repository.dart';
 import 'package:cabquiz/features/home/domain/repository/home_repository.dart';
 import 'package:cabquiz/features/home/views/widgets/enter_room_text_field_widget.dart';
-import 'package:cabquiz/features/home/views/widgets/room_list_widget.dart';
 import 'package:cabquiz/routes/app_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -84,8 +83,6 @@ class _HomePageState extends State<HomePage> {
               const Text('Room topic'),
               const SizedBox(height: 16),
               const EnterRoomTextFieldWidget(),
-              const SizedBox(height: 24),
-              const RoomListWidget(),
             ],
           ),
         ),
@@ -116,7 +113,6 @@ class _HomePageState extends State<HomePage> {
               return ElevatedButton(
                 onPressed: state.filled
                     ? () {
-                        // sometime you can use repository directly without cubit but not recommend
                         context.read<JoinRoomCubit>().joinRoom();
                       }
                     : null,

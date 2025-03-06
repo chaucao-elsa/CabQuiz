@@ -11,7 +11,11 @@ sealed class JoinRoomState with _$JoinRoomState {
 
   const JoinRoomState._();
 
-  bool get filled => username != null && topic != null && topic!.isNotEmpty;
+  bool get filled =>
+      username != null &&
+      username!.isNotEmpty &&
+      topic != null &&
+      topic!.isNotEmpty;
 }
 
 enum JoinRoomStatus {

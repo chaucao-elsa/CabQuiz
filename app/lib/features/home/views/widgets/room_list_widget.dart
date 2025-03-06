@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RoomListWidget extends StatefulWidget {
-  const RoomListWidget({super.key});
+  const RoomListWidget({super.key, required this.controller});
+
+  final TextEditingController controller;
 
   @override
   State<RoomListWidget> createState() => _RoomListWidgetState();
@@ -44,6 +46,7 @@ class _RoomListWidgetState extends State<RoomListWidget> {
                       itemCount: rooms.length,
                       itemBuilder: (_, index) => InkWell(
                         onTap: () {
+                          widget.controller.text = rooms[index].topic;
                           context
                               .read<JoinRoomCubit>()
                               .setTopic(rooms[index].topic);

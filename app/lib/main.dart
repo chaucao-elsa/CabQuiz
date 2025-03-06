@@ -31,6 +31,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp.router(
       routerConfig: router.config(),
       title: 'Cab Quiz',
+      debugShowCheckedModeBanner: false,
       builder: (context, child) {
         // Initialize EasyLoading
         child = EasyLoading.init()(context, child);

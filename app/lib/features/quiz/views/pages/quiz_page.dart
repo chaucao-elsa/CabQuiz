@@ -12,7 +12,9 @@ import 'package:cabquiz/routes/app_router.gr.dart';
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confetti/flutter_confetti.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:random_avatar/random_avatar.dart';
 
 @RoutePage()
@@ -66,7 +68,9 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
         ),
         leadingWidth: 100,
         leading: TextButton(
-          onPressed: context.router.maybePop,
+          onPressed: () {
+            context.router.replace(const HomeRoute());
+          },
           child: const Text('Leave'),
         ),
         actions: [
@@ -224,32 +228,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
             currentState.currentScore! - currentState.previousScore;
 
         if (scoreDifference > 0) {
-          // Correct answer - show success animation
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: Colors.green,
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.check_circle, color: Colors.white),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Correct! +$scoreDifference',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                ],
-              ),
-              behavior: SnackBarBehavior.floating,
-              margin: const EdgeInsets.all(8),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          );
+          winningAnimation(context, scoreDifference);
         } else if (scoreDifference < 0) {
           // Incorrect answer - show failure animation
           ScaffoldMessenger.of(context).showSnackBar(
@@ -285,10 +264,15 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RandomAvatar(
-                  username,
-                  width: 48,
-                  height: 48,
+                GestureDetector(
+                  onTap: () {
+                    playAudio('assets/audio/victory.mp3');
+                  },
+                  child: RandomAvatar(
+                    username,
+                    width: 48,
+                    height: 48,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Text(
@@ -305,5 +289,48 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
         },
       ),
     );
+  }
+
+  Future<void> winningAnimation(BuildContext context, int score) async {
+    playAudio('assets/audio/victory.mp3');
+    Confetti.launch(context,
+        options: const ConfettiOptions(
+          particleCount: 200,
+          spread: 300,
+          y: 0.6,
+          x: 0.3,
+        ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.green,
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.check_circle, color: Colors.white),
+            const SizedBox(width: 8),
+            Text(
+              'Correct! +$score',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.only(left: 24, right: 24, bottom: 80),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+  }
+
+  Future<void> playAudio(String asset) async {
+    final audioPlayer = AudioPlayer();
+    await audioPlayer.setAsset(asset);
+    await audioPlayer.play();
+    await audioPlayer.dispose();
   }
 }
