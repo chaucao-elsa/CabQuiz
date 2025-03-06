@@ -8,7 +8,8 @@ part 'question_dto.g.dart';
 @freezed
 class QuestionDto with _$QuestionDto {
   factory QuestionDto({
-    @JsonKey(name: 'question_text') required String questionText,
+    @JsonKey(name: 'context') required String context,
+    @JsonKey(name: 'question') required String questionText,
     @JsonKey(name: 'options') required List<OptionDto> options,
 
     // user shouldn't see correct answer
@@ -24,6 +25,7 @@ class QuestionDto with _$QuestionDto {
     }
 
     return QuestionDpo(
+      context: context,
       questionText: questionText,
       options: answers,
     );
