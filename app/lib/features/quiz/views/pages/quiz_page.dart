@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cabquiz/features/quiz/blocs/room_cubit/room_cubit.dart';
 import 'package:cabquiz/features/quiz/blocs/user_score_cubit/user_score_cubit.dart';
@@ -14,8 +15,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_confetti/flutter_confetti.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:random_avatar/random_avatar.dart';
+
+const kVictoryAudio = 'audio/victory.mp3';
 
 @RoutePage()
 class QuizPage extends StatelessWidget implements AutoRouteWrapper {
@@ -178,7 +180,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
   Widget _buildQuestionBoard(QuestionDpo question) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: AppColors.greyScale50,
@@ -195,7 +197,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
             maxLines: 3,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -203,7 +205,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
           Text(
             question.questionText,
             style: const TextStyle(
-              fontSize: 24,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
             maxLines: 3,
@@ -266,7 +268,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
               children: [
                 GestureDetector(
                   onTap: () {
-                    playAudio('assets/audio/victory.mp3');
+                    playAudio(kVictoryAudio);
                   },
                   child: RandomAvatar(
                     username,
@@ -292,7 +294,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
   }
 
   Future<void> winningAnimation(BuildContext context, int score) async {
-    playAudio('assets/audio/victory.mp3');
+    playAudio(kVictoryAudio);
     Confetti.launch(context,
         options: const ConfettiOptions(
           particleCount: 200,
@@ -328,9 +330,7 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
   }
 
   Future<void> playAudio(String asset) async {
-    final audioPlayer = AudioPlayer();
-    await audioPlayer.setAsset(asset);
-    await audioPlayer.play();
-    await audioPlayer.dispose();
+    final audioPlayer = AudioPlayer(playerId: 'victory');
+    await audioPlayer.play(AssetSource(asset));
   }
 }
