@@ -113,7 +113,6 @@ class _HomePageState extends State<HomePage> {
               return ElevatedButton(
                 onPressed: state.filled
                     ? () {
-                        // sometime you can use repository directly without cubit but not recommend
                         context.read<JoinRoomCubit>().joinRoom();
                       }
                     : null,

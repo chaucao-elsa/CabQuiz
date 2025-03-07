@@ -12,12 +12,18 @@ import 'package:cabquiz/routes/app_router.gr.dart';
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_confetti/flutter_confetti.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:random_avatar/random_avatar.dart';
 
 @RoutePage()
 class QuizPage extends StatelessWidget implements AutoRouteWrapper {
-  const QuizPage({super.key, required this.roomId, required this.username});
+  const QuizPage({
+    super.key,
+    @PathParam('roomId') required this.roomId,
+    @PathParam('username') required this.username,
+  });
 
   final String roomId;
   final String username;
@@ -62,7 +68,9 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
         ),
         leadingWidth: 100,
         leading: TextButton(
-          onPressed: context.router.maybePop,
+          onPressed: () {
+            context.router.replace(const HomeRoute());
+          },
           child: const Text('Leave'),
         ),
         actions: [
@@ -91,10 +99,26 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Column(
                       children: [
-                        if (startTime != null)
+                        if (startTime != null && question != null)
                           QuestionTimerWidget(
                             key: ValueKey(startTime),
                             startTime: startTime,
+                          )
+                        else
+                          const Center(
+                            child: Column(
+                              children: [
+                                CircularProgressIndicator(),
+                                SizedBox(height: 16),
+                                Text(
+                                  'Waiting for first question...',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         const SizedBox(height: 12),
                         if (question != null) ...[
@@ -192,24 +216,47 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
 
   Widget _buildCurrentUserInfo() {
     return BlocListener<UserScoreCubit, UserScoreState>(
-      // detect when user score is increased
+      // detect when user score changes
       listenWhen: (previous, current) =>
           previous is UserScoreConnected &&
           current is UserScoreConnected &&
           current.currentScore != null &&
-          current.currentScore! > current.previousScore,
+          previous.currentScore != current.currentScore,
       listener: (context, state) {
         final currentState = state as UserScoreConnected;
         final scoreDifference =
             currentState.currentScore! - currentState.previousScore;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'Correct! + $scoreDifference',
-              textAlign: TextAlign.center,
+
+        if (scoreDifference > 0) {
+          winningAnimation(context, scoreDifference);
+        } else if (scoreDifference < 0) {
+          // Incorrect answer - show failure animation
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.red,
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.close, color: Colors.white),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Incorrect! $scoreDifference',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              behavior: SnackBarBehavior.floating,
+              margin: const EdgeInsets.all(8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
             ),
-          ),
-        );
+          );
+        }
       },
       child: BlocBuilder<UserScoreCubit, UserScoreState>(
         builder: (context, state) {
@@ -217,10 +264,15 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                RandomAvatar(
-                  username,
-                  width: 48,
-                  height: 48,
+                GestureDetector(
+                  onTap: () {
+                    playAudio('assets/audio/victory.mp3');
+                  },
+                  child: RandomAvatar(
+                    username,
+                    width: 48,
+                    height: 48,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Text(
@@ -237,5 +289,48 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
         },
       ),
     );
+  }
+
+  Future<void> winningAnimation(BuildContext context, int score) async {
+    playAudio('assets/audio/victory.mp3');
+    Confetti.launch(context,
+        options: const ConfettiOptions(
+          particleCount: 200,
+          spread: 300,
+          y: 0.6,
+          x: 0.3,
+        ));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.green,
+        content: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.check_circle, color: Colors.white),
+            const SizedBox(width: 8),
+            Text(
+              'Correct! +$score',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ],
+        ),
+        behavior: SnackBarBehavior.floating,
+        margin: const EdgeInsets.only(left: 24, right: 24, bottom: 80),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+  }
+
+  Future<void> playAudio(String asset) async {
+    final audioPlayer = AudioPlayer();
+    await audioPlayer.setAsset(asset);
+    await audioPlayer.play();
+    await audioPlayer.dispose();
   }
 }

@@ -12,6 +12,7 @@ class RoomDto with _$RoomDto {
     required String topic,
     DateTime? startTime,
     QuestionDto? question,
+    @Default(0) int players,
   }) = _RoomDto;
 
   const RoomDto._();
@@ -20,15 +21,20 @@ class RoomDto with _$RoomDto {
         topic: topic,
         startTime: startTime,
         question: question?.toDpo(),
+        players: players,
       );
 
   factory RoomDto.fromFirestore(DocumentSnapshot snapshot) {
+    final data = snapshot.data() as Map<String, dynamic>;
     return RoomDto(
-      topic: snapshot['topic'],
-      startTime: (snapshot['start_time'] as Timestamp?)?.toDate(),
-      question: snapshot['current_question'] != null
-          ? QuestionDto.fromJson(snapshot['current_question'])
+      topic: data['topic'] ?? '',
+      startTime: data.containsKey('start_time')
+          ? (data['start_time'] as Timestamp?)?.toDate()
           : null,
+      question: data['current_question'] != null
+          ? QuestionDto.fromJson(data['current_question'])
+          : null,
+      players: 0,
     );
   }
 

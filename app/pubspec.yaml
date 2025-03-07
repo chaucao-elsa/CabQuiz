@@ -45,6 +45,8 @@ dependencies:
   flutter_easyloading: ^3.0.5
   flutter_svg: ^2.0.10+1
   random_avatar: ^0.0.8
+  flutter_confetti: ^0.5.0
+  just_audio: ^0.9.46
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +86,7 @@ flutter:
 
   assets:
   - assets/icons/
+  - assets/audio/
 
   fonts:
   - family: Nunito
