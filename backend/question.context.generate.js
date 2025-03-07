@@ -47,10 +47,13 @@ async function main() {
     return main();
   }
 
-  await handler(room);
+  await handler();
 }
 
-async function handler(room) {
+async function handler() {
+  const room = await selectRoom(workerId);
+  if (!room) return;
+
   for (let i = 0; i < count; i++) {
     const question = await generate(room);
     question.id = `question_${Date.now()}_${i}`;
