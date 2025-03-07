@@ -20,10 +20,23 @@ async function handler(workerId) {
 
   const room = await selectRoom(workerId);
   if (!room) {
+    await admin
+      .firestore()
+      .collection("statistics")
+      .doc(workerId)
+      .set({ room_id: "-" })
+      .catch(console.error);
     console.log(`[${logs.join(" / ")}] NO_ROOM`);
     await new Promise((resolve) => setTimeout(resolve, 3000));
     return main();
   }
+
+  await admin
+    .firestore()
+    .collection("statistics")
+    .doc(workerId)
+    .set({ evaluating: room.id })
+    .catch(console.error);
 
   logs.push(room.id);
   logs.push(room.current_question?.id);

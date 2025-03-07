@@ -42,10 +42,24 @@ async function main() {
 
   const room = await selectRoom(workerId);
   if (!room) {
+    await admin
+      .firestore()
+      .collection("statistics")
+      .doc(workerId)
+      .set({ question_generating: "-" })
+      .catch(console.error);
+
     console.log(`[${workerId}] NO_ROOM`);
     await new Promise((resolve) => setTimeout(resolve, 5000));
     return main();
   }
+
+  await admin
+    .firestore()
+    .collection("statistics")
+    .doc(workerId)
+    .set({ question_generating: room.id })
+    .catch(console.error);
 
   await handler();
 }
