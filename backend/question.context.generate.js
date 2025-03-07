@@ -52,7 +52,7 @@ async function main() {
 }
 
 async function handler(room, start) {
-  if ((Date.now() - start) / 1000 / 60 / 15 > 1) return;
+  if ((Date.now() - start) / 1000 / 60 / 5 > 1) return;
 
   for (let i = 0; i < count; i++) {
     const question = await generate(room);
