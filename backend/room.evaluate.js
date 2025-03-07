@@ -24,7 +24,7 @@ async function handler(workerId) {
       .firestore()
       .collection("workers")
       .doc(workerId)
-      .set({ room_id: "-" }, { merge: true })
+      .set({ evaluating: "-" }, { merge: true })
       .catch(console.error);
     console.log(`[${logs.join(" / ")}] NO_ROOM`);
     await new Promise((resolve) => setTimeout(resolve, 3000));
