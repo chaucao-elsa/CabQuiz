@@ -14,7 +14,7 @@ Question: Short, clear, easy to understand in 5-15 words
 
 Four answer options, including:
 One completely correct answer (+2 points)
-One almost correct but not entirely suitable answer (0 points)
+One almost correct but not entirely suitable answer (1 points)
 One incorrect but reasonable answer (-1 point)
 One completely incorrect/absurd answer (-2 points)
 
