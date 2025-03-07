@@ -46,7 +46,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   random_avatar: ^0.0.8
   flutter_confetti: ^0.5.0
-  just_audio: ^0.9.46
+  audioplayers: ^6.3.0
 
 dev_dependencies:
   flutter_test:
