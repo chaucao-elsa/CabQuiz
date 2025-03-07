@@ -51,10 +51,10 @@ async function main() {
 }
 
 async function handler() {
-  const room = await selectRoom(workerId);
-  if (!room) return;
-
   for (let i = 0; i < count; i++) {
+    const room = await selectRoom(workerId);
+    if (!room) return;
+
     const question = await generate(room);
     question.id = `question_${Date.now()}_${i}`;
     question.room_id = room.id;
