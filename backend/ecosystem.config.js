@@ -25,6 +25,18 @@ module.exports = {
       autorestart: false,
     },
     {
+      name: "cabquiz.room.evaluate.worker_4",
+      script: "node room.evaluate.js worker_4",
+      cwd: "/home/debian/CabQuiz/backend",
+      autorestart: false,
+    },
+    {
+      name: "cabquiz.room.evaluate.worker_5",
+      script: "node room.evaluate.js worker_5",
+      cwd: "/home/debian/CabQuiz/backend",
+      autorestart: false,
+    },
+    {
       name: "cabquiz.question.context.generate.worker_1",
       script: "node question.context.generate.js worker_1",
       cwd: "/home/debian/CabQuiz/backend",
@@ -39,6 +51,18 @@ module.exports = {
     {
       name: "cabquiz.question.context.generate.worker_3",
       script: "node question.context.generate.js worker_3",
+      cwd: "/home/debian/CabQuiz/backend",
+      autorestart: false,
+    },
+    {
+      name: "cabquiz.question.context.generate.worker_4",
+      script: "node question.context.generate.js worker_4",
+      cwd: "/home/debian/CabQuiz/backend",
+      autorestart: false,
+    },
+    {
+      name: "cabquiz.question.context.generate.worker_5",
+      script: "node question.context.generate.js worker_5",
       cwd: "/home/debian/CabQuiz/backend",
       autorestart: false,
     },
