@@ -46,7 +46,7 @@ async function main() {
       .firestore()
       .collection("statistics")
       .doc(workerId)
-      .set({ question_generating: "-" })
+      .set({ question_generating: "-" }, { merge: true })
       .catch(console.error);
 
     console.log(`[${workerId}] NO_ROOM`);
@@ -58,7 +58,7 @@ async function main() {
     .firestore()
     .collection("statistics")
     .doc(workerId)
-    .set({ question_generating: room.id })
+    .set({ question_generating: room.id }, { merge: true })
     .catch(console.error);
 
   await handler();
