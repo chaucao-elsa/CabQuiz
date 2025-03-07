@@ -44,7 +44,7 @@ async function main() {
   if (!room) {
     await admin
       .firestore()
-      .collection("statistics")
+      .collection("workers")
       .doc(workerId)
       .set({ question_generating: "-" }, { merge: true })
       .catch(console.error);
@@ -56,7 +56,7 @@ async function main() {
 
   await admin
     .firestore()
-    .collection("statistics")
+    .collection("workers")
     .doc(workerId)
     .set({ question_generating: room.id }, { merge: true })
     .catch(console.error);

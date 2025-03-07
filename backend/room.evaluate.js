@@ -22,7 +22,7 @@ async function handler(workerId) {
   if (!room) {
     await admin
       .firestore()
-      .collection("statistics")
+      .collection("workers")
       .doc(workerId)
       .set({ room_id: "-" }, { merge: true })
       .catch(console.error);
@@ -33,7 +33,7 @@ async function handler(workerId) {
 
   await admin
     .firestore()
-    .collection("statistics")
+    .collection("workers")
     .doc(workerId)
     .set({ evaluating: room.id }, { merge: true })
     .catch(console.error);
