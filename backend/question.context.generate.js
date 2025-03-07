@@ -33,7 +33,7 @@ Interesting, engaging content with a challenging nature
 Suitable for a response time of 20-30 seconds`;
 
 const workerId = process.argv[2];
-const count = Number(process.argv[3] || 5);
+const count = Number(process.argv[3] || 100);
 
 if (process.argv[1] === __filename) main();
 
@@ -47,13 +47,10 @@ async function main() {
     return main();
   }
 
-  const start = Date.now();
-  await handler(room, start);
+  await handler(room);
 }
 
-async function handler(room, start) {
-  if ((Date.now() - start) / 1000 / 60 / 5 > 1) return;
-
+async function handler(room) {
   for (let i = 0; i < count; i++) {
     const question = await generate(room);
     question.id = `question_${Date.now()}_${i}`;
@@ -68,8 +65,6 @@ async function handler(room, start) {
     console.log(`[${question.id}] GENERATED`);
     await new Promise((resolve) => setTimeout(resolve, 3000));
   }
-
-  return handler(room, start);
 }
 
 async function generate(room) {
