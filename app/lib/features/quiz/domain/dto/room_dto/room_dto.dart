@@ -34,7 +34,7 @@ class RoomDto with _$RoomDto {
       question: data['current_question'] != null
           ? QuestionDto.fromJson(data['current_question'])
           : null,
-      players: 0,
+      players: data.containsKey('players') ? data['players'] : 0,
     );
   }
 

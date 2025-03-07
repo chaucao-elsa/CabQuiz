@@ -43,8 +43,12 @@ class HomeFirebaseRepository implements HomeRepository {
       final roomDoc = await roomRef.get();
       if (!roomDoc.exists) {
         // Create room if it doesn't exist
-        await roomRef
-            .set({'id': formattedTopic, 'topic': topic, 'worker_id': '-'});
+        await roomRef.set({
+          'id': formattedTopic,
+          'topic': topic,
+          'worker_id': '-',
+          'players': 0,
+        });
       }
 
       // Check if user already exists in the room
@@ -58,6 +62,8 @@ class HomeFirebaseRepository implements HomeRepository {
             .collection('participants')
             .doc(user.username)
             .set(user.toJson()..addAll({'score': 0}));
+        // increment room participant count
+        await roomRef.update({'players': FieldValue.increment(1)});
       }
 
       return Right(formattedTopic);
