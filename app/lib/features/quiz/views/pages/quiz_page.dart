@@ -95,8 +95,9 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
             child: BlocBuilder<RoomCubit, RoomState>(
               builder: (context, state) {
                 if (state is RoomConnected) {
-                  final question = state.room.question;
-                  final startTime = state.room.startTime;
+                  final room = state.room;
+                  final question = room.question;
+                  final startTime = room.startTime;
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 24),
                     child: Column(
@@ -133,11 +134,18 @@ class QuizPage extends StatelessWidget implements AutoRouteWrapper {
                             flex: 3,
                             child: AnswerSectionWidget(
                               question: question,
-                              selectedAnswer: state.room.userAnswer,
-                              onAnswerSelected: state.room.userAnswer != null
+                              selectedAnswer: room.userAnswer,
+                              onAnswerSelected: room.userAnswer != null
                                   ? null
                                   : (index) {
-                                      // sometime we can use repository without cubit (NOT RECOMMENDED)
+                                      final timeLeft = 15 -
+                                          DateTime.now()
+                                              .difference(startTime!)
+                                              .inSeconds;
+                                      if (timeLeft <= 1.5) {
+                                        EasyLoading.showError('Too late!');
+                                        return;
+                                      }
 
                                       EasyLoading.show();
                                       final response = context
