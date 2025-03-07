@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
         if (!hasPlayedOnce && audioPlayer.state != PlayerState.playing) {
           hasPlayedOnce = true;
           audioPlayer.setReleaseMode(ReleaseMode.loop);
-          audioPlayer.setVolume(0.5); // Set volume to 50%
+          audioPlayer.setVolume(0.25); // Set volume to 50%
           audioPlayer.play(
             AssetSource('audio/backgroundv2.mp3'),
           );
