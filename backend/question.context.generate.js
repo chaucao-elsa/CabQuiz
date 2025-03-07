@@ -66,6 +66,7 @@ async function handler(room, start) {
       .doc(question.id)
       .set(question);
     console.log(`[${question.id}] GENERATED`);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
   }
 
   return handler(room, start);
