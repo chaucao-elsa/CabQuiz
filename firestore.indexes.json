@@ -13,6 +13,20 @@
           "order": "ASCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "questions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "schedule_at",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "room_id",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ],
   "fieldOverrides": []

@@ -13,7 +13,10 @@ async function main(limit = 100) {
     for (let doc of docs) {
       console.log(`${doc.id} ...`);
       batch.update(doc.ref, {
-        options: _.shuffle(doc.data().options),
+        options: _.shuffle(doc.data().options).map((o) => {
+          if (!o.score) o.score = 1;
+          return o;
+        }),
         schedule_at: Date.now() + 1000 * 60 * random(30, 60),
       });
     }
@@ -29,6 +32,7 @@ async function get(limit) {
     .firestore()
     .collection("questions")
     .where("room_id", "!=", "-")
+    .orderBy("schedule_at")
     .limit(limit)
     .get()
     .then((s) => s.docs);
